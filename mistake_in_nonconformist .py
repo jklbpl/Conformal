@@ -1,18 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from sklearn.datasets import load_diabetes
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from nonconformist.cp import IcpRegressor
 from nonconformist.nc import NcFactory
 from nonconformist.nc import SignErrorErrFunc
-
-
-# In[62]:
 
 
 diabetes = load_diabetes()
