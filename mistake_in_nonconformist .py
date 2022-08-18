@@ -24,12 +24,22 @@ icp.calibrate(diabetes.data[idx_cal, :], diabetes.target[idx_cal])
 # Produce predictions for the test set, with confidence 95%
 prediction = icp.predict(diabetes.data[idx_test, :], significance=0.05)
 
-# Print the first 5 predictions
-#print(prediction[:5, :5])
+# Produce predictions for the test set, with confidence 95%
+prediction = icp.predict(diabetes.data[idx_test, :], significance=0.05)
+print(prediction[:5])
+
+
 #printing predictions without significance
 prediction_nondef = icp.predict(diabetes.data[idx_test, :])
+print(prediction_nondef[:,:,4][:5])
 
-# Print the first 5 predictions
-#print(prediction_nondef[:5,:,4])
-print(prediction_nondef[:,:,4]==prediction)
+# comparing the results
+
+# lower bound is always correct, but the upper bound is always wrong
+comparison = (prediction == prediction_nondef[:,:,4])
+low_bound_corr_frac = sum(comparison[:,0]) / len(idx_test) * 100
+up_bound_corr_frac = sum(comparison[:,1]) / len(idx_test) * 100
+print('Lower bound correctly predicted: {}%'.format(np.round(low_bound_corr_frac, 2)))
+print('Upper bound correctly predicted: {}%'.format(np.round(up_bound_corr_frac, 2)))
+
 
